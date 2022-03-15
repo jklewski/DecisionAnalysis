@@ -145,6 +145,7 @@ if (!isNaN(limit_pf_CrCf[0])) {
         Pf_lim[0][i] = boundspf_A(CrCf[i],methodRel,C_E/Cf); // lower bound
         Pf_lim[1][i] = boundspf_B(CrCf[i],methodRel,C_E/Cf); // upper bound
     }
+     
     CrCf = [0,CrCf[0],...CrCf,CrCf[CrCf.length-1],1];
     Pf_lim[0] = [0,Pf_lim[0][0],...Pf_lim[0],Pf_lim[0][Pf_lim[0].length-1],1];
     Pf_lim[1] = [0,Pf_lim[1][0],...Pf_lim[1],Pf_lim[1][Pf_lim[1].length-1],1];
@@ -172,6 +173,11 @@ function drawFunc(res) {
             var substr1 = [];
             var substr2 = [];
             
+
+            if (res.CrCf.reduce((a,b) => a+b)>0.001 & 
+            res.CrCf.reduce((a,b) => b>a?b:a)<1.001 &
+            res.CrCf.reduce((a,b) => b>a?b:a)>-0.001) {
+            
             for (let i = 0; i < res.CrCf.length; i++) {
                 substr1 = 'L' + res.Pf_lim[0][i] + ',' + res.CrCf[i];
                 substr2 = 'L' + res.Pf_lim[1][i] + ',' + res.CrCf[i];
@@ -180,6 +186,11 @@ function drawFunc(res) {
             }
             pathdef1 = pathdef1 + 'L0,1' + 'L0,0' + 'Z';
             pathdef2 = pathdef2 + 'L1,0' + 'L0,0' + 'Z';
+        } else {
+            pathdef1 = pathdef1 + 'L1,1L0,1,L0,0Z'
+            pathdef2 = pathdef2 + 'L1,1L1,0,L0,0Z'
+        }
+
             var shape1 = {
                 type: 'path', path: pathdef1, line: { width: 1, color: 'rgb(0,0,0)' }, fillcolor: 'rgba(0,0,150,0.5)',
                 xref: "x1", yref: "y1"
@@ -188,7 +199,7 @@ function drawFunc(res) {
                 type: 'path', path: pathdef2, line: { width: 1, color: 'rgb(0,0,0)' }, fillcolor: 'rgba(150,0,0,0.5)',
                 xref: "x1", yref: "y1"
             }
-    
+            
     
             var ax = document.querySelector("#myPlot")
             var trace = {
@@ -201,7 +212,7 @@ function drawFunc(res) {
                 },
             };
             var layout = {
-                shapes: [shape1, shape2],
+                shapes: [shape1,shape2],
                 xaxis: { range: [0, 1], title: "P<sub>f,prior</sub>" },
                 yaxis: { range: [0, 1], title: "C<sub>r</sub>/C<sub>f</sub>", scaleanchor: 'x' },
             }
