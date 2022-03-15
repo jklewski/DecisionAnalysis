@@ -173,10 +173,11 @@ function drawFunc(res) {
             var substr1 = [];
             var substr2 = [];
             
-
-            if (res.CrCf.reduce((a,b) => a+b)>0.001 & 
+            //check if study choice exists
+            var check = (res.CrCf.reduce((a,b) => a+b)>0.001 & 
             res.CrCf.reduce((a,b) => b>a?b:a)<1.001 &
-            res.CrCf.reduce((a,b) => b>a?b:a)>-0.001) {
+            res.CrCf.reduce((a,b) => b>a?b:a)>-0.001)
+            if (check) {
             
             for (let i = 0; i < res.CrCf.length; i++) {
                 substr1 = 'L' + res.Pf_lim[0][i] + ',' + res.CrCf[i];
@@ -215,8 +216,53 @@ function drawFunc(res) {
                 shapes: [shape1,shape2],
                 xaxis: { range: [0, 1], title: "P<sub>f,prior</sub>" },
                 yaxis: { range: [0, 1], title: "C<sub>r</sub>/C<sub>f</sub>", scaleanchor: 'x' },
+                annotations: [{
+                    text: "<b>Cheat!</b>",
+                      font: {
+                      size: 12,
+                       color: 'black',
+                    },
+                    showarrow: false,
+                    align: 'center',
+                    x: 0.1,
+                    y: 0.9,
+                    xref: 'paper',
+                    yref: 'paper',
+                    },
+                    {
+                      text: "<b>Don't cheat!</b>",
+                      font: {
+                      size: 12,
+                      color: 'black',
+                    },
+                    showarrow: false,
+                    align: 'center',
+                    x: 0.9,
+                    y: 0.1,
+                    xref: 'paper',
+                    yref: 'paper',
+                    },
+                  ] 
             }
     
+            if (check) {
+                var annotation2 = {
+                  text: "<b>Study!</b>",
+                  font: {
+                  size: 12,
+                  color: 'black',
+                },
+                showarrow: false,
+                align: 'center',
+                textangle: -45,
+                x: 0.5,
+                y: 0.5,
+                xref: 'paper',
+                yref: 'paper',
+                }
+            layout.annotations.push(annotation2)
+            }
+
             data = [trace]
             Plotly.newPlot(ax, data, layout)
 }
