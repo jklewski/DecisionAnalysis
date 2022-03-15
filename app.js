@@ -15,7 +15,7 @@ function findzero(arr) {
 }
 
 function linspace(min,max,nel) {
-    nel = nel-1
+    var nel = nel-1
     var xMax = max; //max x   
     var xMin = min; //min x from previous section
     var x = [...Array(nel+1).keys()];
@@ -23,10 +23,11 @@ function linspace(min,max,nel) {
     return x
   }
 
+function mainFunc() {
 //replicate Ivars code here
-var Cf = -100;
-var Cr = -20;
-var prior = 0.4;
+var Cf = document.querySelector("#Cf_in").value/-10
+var Cr = document.querySelector("#Cr_in").value/-10
+var prior = 1-(document.querySelector("#prior_in").value/100)
 var P_f = [1-prior,prior]
 var C_tot = []
 C_tot[0] = [0,Cf]
@@ -36,26 +37,15 @@ var exp_u = []
 exp_u[0] = C_tot[0][0]*P_f[0] + C_tot[0][1]*P_f[1]
 exp_u[1] = C_tot[1][0]*P_f[0] + C_tot[1][1]*P_f[1] 
 
-var res = {Probabilities:P_f,
-    ExpectedUtility:exp_u, 
-    Costs:[Cf, Cr]};
 
-var P_th = res.Probabilities
-var c = [1,2,5,4,3]
-var a = [0, 21, 22, 7];
+
+var P_th = P_f
 var iMax = exp_u.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
 var exp_uPrior = exp_u[iMax]
 
-if (iMax=1) {
-    var priorColor = 'red'
-    var optprior = 'do not cheat'
-} else {
-    var priorColor = 'blue'
-    var optprior = 'cheat'
-}
 
-var methodRel = 0.8
-var C_E = -10
+var methodRel =  document.querySelector("#methodRel_in").value/100
+var C_E = document.querySelector("#C_E_in").value/-10
 var exp_u = [exp_uPrior,0]
 var decisionNames = ['Do not study','Study'];
 var numO = 2; //Two possible utcomes from studying (topics covered or not covered)
@@ -161,7 +151,7 @@ if (!isNaN(limit_pf_CrCf[0])) {
 }
 
 
-res = {CrCf:CrCf,
+return res = {CrCf:CrCf,
     Pf_lim:Pf_lim,
     exp_u:exp_u, 
     P_z:P_z, 
@@ -173,4 +163,49 @@ res = {CrCf:CrCf,
     Cr:Cr,
     Cf:Cf,
     prior:prior}
-1
+}
+
+function drawFunc(res) {
+            //Create shapes
+            var pathdef1 = 'M0,0'
+            var pathdef2 = 'M0,0'
+            var substr1 = [];
+            var substr2 = [];
+            
+            for (let i = 0; i < res.CrCf.length; i++) {
+                substr1 = 'L' + res.Pf_lim[0][i] + ',' + res.CrCf[i];
+                substr2 = 'L' + res.Pf_lim[1][i] + ',' + res.CrCf[i];
+                pathdef1 = pathdef1.concat(substr1)
+                pathdef2 = pathdef2.concat(substr2)
+            }
+            pathdef1 = pathdef1 + 'L0,1' + 'L0,0' + 'Z';
+            pathdef2 = pathdef2 + 'L1,0' + 'L0,0' + 'Z';
+            var shape1 = {
+                type: 'path', path: pathdef1, line: { width: 1, color: 'rgb(0,0,0)' }, fillcolor: 'rgba(0,0,150,0.5)',
+                xref: "x1", yref: "y1"
+            }
+            var shape2 = {
+                type: 'path', path: pathdef2, line: { width: 1, color: 'rgb(0,0,0)' }, fillcolor: 'rgba(150,0,0,0.5)',
+                xref: "x1", yref: "y1"
+            }
+    
+    
+            var ax = document.querySelector("#myPlot")
+            var trace = {
+                x: [res.prior, res.prior],
+                y: [res.Cr / res.Cf, res.Cr / res.Cf],
+                type: 'markers',
+                marker: {
+                    color: 'rgb(255,0,0)',
+                    size: 10
+                },
+            };
+            var layout = {
+                shapes: [shape1, shape2],
+                xaxis: { range: [0, 1], title: "P<sub>f,prior</sub>" },
+                yaxis: { range: [0, 1], title: "C<sub>r</sub>/C<sub>f</sub>", scaleanchor: 'x' },
+            }
+    
+            data = [trace]
+            Plotly.newPlot(ax, data, layout)
+}
