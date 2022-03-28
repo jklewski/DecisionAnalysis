@@ -176,7 +176,12 @@ function drawFunc(res) {
             //check if study choice exists
             var check = (res.CrCf.reduce((a,b) => a+b)>0.001 & 
             res.CrCf.reduce((a,b) => b>a?b:a)<1.001 &
-            res.CrCf.reduce((a,b) => b>a?b:a)>-0.001)
+            res.CrCf.reduce((a,b) => b>a?b:a)>-0.001 &
+            document.querySelector("#part2button") == null)
+            
+            
+            
+
             if (check) {
             
             for (let i = 0; i < res.CrCf.length; i++) {
