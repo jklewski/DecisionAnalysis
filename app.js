@@ -217,7 +217,7 @@ function drawFunc(res) {
                 xaxis: { range: [0, 1], title: "P<sub>f,prior</sub>" },
                 yaxis: { range: [0, 1], title: "C<sub>r</sub>/C<sub>f</sub>", scaleanchor: 'x' },
                 annotations: [{
-                    text: "<b>Cheat!</b>",
+                    text: "<b>Don't Cheat!</b>",
                       font: {
                       size: 12,
                        color: 'black',
@@ -230,7 +230,7 @@ function drawFunc(res) {
                     yref: 'paper',
                     },
                     {
-                      text: "<b>Don't cheat!</b>",
+                      text: "<b>Cheat!</b>",
                       font: {
                       size: 12,
                       color: 'black',

@@ -48,13 +48,13 @@
                     '<div class="input-group-append"><button style="min-width: ${buttonsWidth}" class="btn btn-increment ${buttonsClass} btn-plus" type="button">${incrementButton}</button></div>' +
                     '</div>'
             })
+
             $(".geom").on('input', function () {
       res=mainFunc()
       drawFunc(res)
       })
 
-
-        })
+      })
     </script>
 
 </head>
@@ -64,19 +64,23 @@
         <div class="row align-items-start" id="leftarea">
             <div class="col-4 p-4" style="max-width: 300px;min-width: 500px;">
                 <input id="prior_in" data-prefix="Confidence pass w/o study (%)" class="geom" type="number" value="60"
-                    min="1" max="100" step="5" />
+                    min="1" max="100" step="2" />
                 <input id="methodRel_in" data-prefix="Confidence in study results (%)" class="geom" type="number"
-                    value="80" min="1" max="100" step="5" /><br>
-                <input id="C_E_in" data-prefix="Study cost (0-1000)" class="geom" type="number" value="100" min="1"
-                    max="1000" step="50" />
+                    value="80" min="1" max="100" step="2" /><br>
+                <input id="C_E_in" data-prefix="Cost for studying (0-1000)" class="geom" type="number" value="100" min="1"
+                    max="1000" step="10" />
                 <input id="Cf_in" data-prefix="Cost failing exam (0-1000)" class="geom" type="number" value="1000"
-                    min="1" max="1000" step="50" />
+                    min="1" max="1000" step="10" />
                 <input id="Cr_in" data-prefix="Cost for cheating (0-1000)" class="geom" type="number" value="300"
-                    min="1" max="1000" step="50" />
+                    min="1" max="1000" step="10" />
             </div>
         </div>
     </div>
-    <div id="myPlot" style="width:500px; height:500px"></div>
+    <div id="myPlot" style="width:500px; height:500px;"></div>
+    <inpur type="button">task 2</inpur>
+
+
+
 
     <script>
 
