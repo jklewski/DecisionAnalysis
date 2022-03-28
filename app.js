@@ -214,8 +214,8 @@ function drawFunc(res) {
             };
             var layout = {
                 shapes: [shape1,shape2],
-                xaxis: { range: [0, 1], title: "Failure probability (1-confidence of passing)" },
-                yaxis: { range: [0, 1], title: "Cost of cheating / cost of failing", scaleanchor: 'x' },
+                xaxis: { range: [0, 1], title: "Failure probability (1-confidence of passing)",fixedrange: true },
+                yaxis: { range: [0, 1], title: "Cost of cheating / cost of failing", scaleanchor: 'x',fixedrange: true },
                 annotations: [{
                     text: "<b>Cheat!</b>",
                       font: {
@@ -264,5 +264,5 @@ function drawFunc(res) {
             }
 
             data = [trace]
-            Plotly.newPlot(ax, data, layout)
+            Plotly.newPlot(ax, data, layout,{displayModeBar: false})
 }
