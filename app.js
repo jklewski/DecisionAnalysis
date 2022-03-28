@@ -214,10 +214,10 @@ function drawFunc(res) {
             };
             var layout = {
                 shapes: [shape1,shape2],
-                xaxis: { range: [0, 1], title: "P<sub>f,prior</sub>" },
-                yaxis: { range: [0, 1], title: "C<sub>r</sub>/C<sub>f</sub>", scaleanchor: 'x' },
+                xaxis: { range: [0, 1], title: "Failure probability (1-confidence of passing)" },
+                yaxis: { range: [0, 1], title: "Cost of cheating / cost of failing", scaleanchor: 'x' },
                 annotations: [{
-                    text: "<b>Don't Cheat!</b>",
+                    text: "<b>Cheat!</b>",
                       font: {
                       size: 12,
                        color: 'black',
@@ -230,7 +230,7 @@ function drawFunc(res) {
                     yref: 'paper',
                     },
                     {
-                      text: "<b>Cheat!</b>",
+                      text: "<b>Don't Cheat!</b>",
                       font: {
                       size: 12,
                       color: 'black',
