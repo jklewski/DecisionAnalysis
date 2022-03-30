@@ -70,7 +70,7 @@
                 <input id="Cr_in" data-prefix="Cost for cheating (0-1000)" class="geom" type="number" value="300"
                     min="1" max="1000" step="10" />
                     <br>
-                    <button type="button" id = "part2button" onclick="buttonfunc()">Part II</button>
+                    <button type="button" id = "part2button" onclick="buttonfunc()">Go to Part II</button>
                     <br>
                     <br>
                     <input id="methodRel_in" data-prefix="Confidence in study results (%)" class="geom" type="number"
@@ -98,13 +98,20 @@
 
         function buttonfunc() {
             btn0 = document.querySelector('#part2button')
-            btn0.remove()
             btn1 = document.querySelector('#methodRel_in')
             btn2 = document.querySelector('#C_E_in')
-            btn1.hidden = false;
-            btn2.hidden = false;
-            res = mainFunc()
-            drawFunc(res)
+            if (btn0.innerHTML == "Go to Part II") {
+                btn0.innerHTML = "Back to Part I"
+                btn1.hidden = false;
+                btn2.hidden = false;
+            }
+                else {
+                btn0.innerHTML = "Go to Part II"
+                btn1.hidden = true;
+                btn2.hidden = true;
+                }
+                res = mainFunc()
+                drawFunc(res)
         }
     </script>
     <div>

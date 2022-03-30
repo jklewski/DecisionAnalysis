@@ -44,7 +44,7 @@ var iMax = exp_u.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
 var exp_uPrior = exp_u[iMax]
 
 
-var methodRel =  document.querySelector("#methodRel_in").value/100
+var methodRel =  (document.querySelector("#methodRel_in").value/100)/2+0.5
 var C_E = document.querySelector("#C_E_in").value/-10
 var exp_u = [exp_uPrior,0]
 var decisionNames = ['Do not study','Study'];
@@ -174,10 +174,11 @@ function drawFunc(res) {
             var substr2 = [];
             
             //check if study choice exists
+            
             var check = (res.CrCf.reduce((a,b) => a+b)>0.001 & 
             res.CrCf.reduce((a,b) => b>a?b:a)<1.001 &
             res.CrCf.reduce((a,b) => b>a?b:a)>-0.001 &
-            document.querySelector("#part2button") == null)
+            !document.querySelector('#methodRel_in').hidden)
             
             
             
@@ -222,7 +223,7 @@ function drawFunc(res) {
                 xaxis: { range: [0, 1], title: "Failure probability (1-confidence of passing)",fixedrange: true },
                 yaxis: { range: [0, 1], title: "Cost of cheating / cost of failing", scaleanchor: 'x',fixedrange: true },
                 annotations: [{
-                    text: "<b>Cheat!</b>",
+                    text: "<b>Don't Cheat!</b>",
                       font: {
                       size: 12,
                        color: 'black',
@@ -235,7 +236,7 @@ function drawFunc(res) {
                     yref: 'paper',
                     },
                     {
-                      text: "<b>Don't Cheat!</b>",
+                      text: "<b>Cheat!</b>",
                       font: {
                       size: 12,
                       color: 'black',
